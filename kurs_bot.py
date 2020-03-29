@@ -1,8 +1,9 @@
 import config
-from parser import get_data_sort, format_data_list, format_data_str, parse_website
+from main import format_data_list, format_data_str, creat_user
 
 import telebot
 from telebot import TeleBot, types
+from pprint import pformat, pprint
 
 bot = TeleBot(config.TOKEN)
 
@@ -10,6 +11,7 @@ bot = TeleBot(config.TOKEN)
 
 @bot.message_handler(comands=['/start'])
 def welcome(message):
+    creat_user(message)
     user_name = message.from_user.first_name
     bot_name = bot.get_me().first_name
 
@@ -33,15 +35,15 @@ def welcome(message):
 def lalala(message):
     if message.chat.type == 'private':
         if message.text == 'Курс всех банков':
-            data = parse_website()
+            data = format_data_list(message.text)
             result = format_data_str(data, message.text)
             bot.send_message(message.chat.id, f'{result}', parse_mode='html')
         elif message.text == 'Выгодно продать':
-            data = get_data_sort(message.text)
+            data = format_data_list(message.text)
             result = format_data_str(data, message.text)
             bot.send_message(message.chat.id, f'{result}', parse_mode='html')
         elif message.text == 'Выгодно купить':
-            data = get_data_sort(message.text)
+            data = format_data_list(message.text)
             result = format_data_str(data,message.text)
             bot.send_message(message.chat.id, f'{result}', parse_mode='html')
         else:
