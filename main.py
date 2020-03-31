@@ -3,12 +3,15 @@ from models import Bank, Branch, User
 import datetime
 
 
-def creat_user(message):
+def creat_user_bd(message):
     userId = message.from_user.id
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
-    user_name = message.from_user.username 
-    user, created = User.get_or_create(userId=userId, first_name=first_name, last_name=last_name, user_name=user_name)
+    user_name = message.from_user.username
+    try:
+        User.get(User.userId == userId)
+    except User.DoesNotExist:
+        User.create(userId=userId, first_name=first_name, last_name=last_name, user_name=user_name)
     
 
 def get_data_db():
@@ -56,7 +59,6 @@ def format_data_list(method):
 
 def main():
     print(get_data_db())
-
 
 if __name__ == '__main__':
     main()

@@ -20,13 +20,15 @@ class Branch(Model):
     bank = ForeignKeyField(Bank, backref='branches')
     adress = CharField(null=True)
     phone_number = CharField(null=True)
+    latitude = CharField(null=True)
+    longitude = CharField(null=True)
 
     class Meta:
         database = db
 
 
 class User(Model):
-    userId = CharField(null=True)
+    userId = CharField()
     first_name = CharField(null=True)
     last_name = CharField(null=True)
     user_name = CharField(null=True)
