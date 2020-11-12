@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+beautifulsoup4 = "==4.8.2"
+certifi = "==2019.11.28"
+chardet = "==3.0.4"
+idna = "==2.9"
+requests = "==2.23.0"
+six = "==1.14.0"
+soupsieve = "==2.0"
+urllib3 = "==1.25.8"
+pyTelegramBotAPI = "==3.6.7"
+peewee = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
