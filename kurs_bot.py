@@ -1,13 +1,12 @@
 import config
 from main import format_data_list, format_data_str, creat_user_bd
-from branch import *
+from banks_filials_on_map import *
 
 import telebot
 from telebot import TeleBot, types
 from pprint import pformat, pprint
 
 bot = TeleBot(config.TOKEN)
-
 
 
 @bot.message_handler(comands=['/start'])
@@ -27,15 +26,17 @@ def welcome(message):
     markup.add(button2, button3)
     markup.add(button4)
 
-    bot.send_message(message.chat.id, f"Добро пожаловать, {user_name}!\nЯ - <b>{bot_name}</b>, бот следящий за курсом $ в Минске!",
-    parse_mode='html', reply_markup=markup)
+    bot.send_message(message.chat.id,
+                     f"Добро пожаловать, {user_name}!\nЯ - <b>{bot_name}</b>, бот следящий за курсом $ в Минске!",
+                     parse_mode='html', reply_markup=markup)
 
-    #sti = open('static/welcome.webp', 'rb')
-    #bot.send_sticker(message.chat.id, sti)
+    # sti = open('static/welcome.webp', 'rb')
+    # bot.send_sticker(message.chat.id, sti)
 
-@bot.message_handler(commands = ['url'])
+
+@bot.message_handler(commands=['url'])
 @bot.message_handler(content_types=['text'])
-def lalala(message):
+def menu_bot(message):
     if message.chat.type == 'private':
         if message.text == 'Курс всех банков':
             data = format_data_list(message.text)
@@ -47,7 +48,7 @@ def lalala(message):
             bot.send_message(message.chat.id, f'{result}', parse_mode='html')
         elif message.text == 'Выгодно купить':
             data = format_data_list(message.text)
-            result = format_data_str(data,message.text)
+            result = format_data_str(data, message.text)
             bot.send_message(message.chat.id, f'{result}', parse_mode='html')
         elif message.text == 'Контакты отделений':
 
@@ -71,13 +72,15 @@ def lalala(message):
             button17 = types.InlineKeyboardButton('Цептер Банк', URL_ZEPTERBANK)
 
             markup.add(button1, button2, button3)
-            markup.add(button4,button5, button6)
+            markup.add(button4, button5, button6)
             markup.add(button7, button8, button9)
-            markup.add(button10,button11, button12)
+            markup.add(button10, button11, button12)
             markup.add(button13, button14, button15)
-            markup.add(button16,button17)
+            markup.add(button16, button17)
 
-            bot.send_message(message.chat.id, 'При обмене крупных сумм рекомендую обратится в колл-цент выбранного банка', reply_markup=markup)
+            bot.send_message(message.chat.id,
+                             'При обмене крупных сумм рекомендую обратится в колл-цент выбранного банка',
+                             reply_markup=markup)
         else:
             welcome(message)
 

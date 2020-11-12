@@ -1,10 +1,10 @@
 from peewee import *
 import datetime
 
-
 db = SqliteDatabase('banks.db')
 
-#unique=True
+
+# unique=True
 class Bank(Model):
     name = CharField()
     buy = CharField(null=True)
@@ -14,17 +14,6 @@ class Bank(Model):
     class Meta:
         database = db
         table_name = 'bank'
-
-
-class Branch(Model):
-    bank = ForeignKeyField(Bank, backref='branches')
-    adress = CharField(null=True)
-    phone_number = CharField(null=True)
-    latitude = CharField(null=True)
-    longitude = CharField(null=True)
-
-    class Meta:
-        database = db
 
 
 class User(Model):
@@ -39,8 +28,8 @@ class User(Model):
 
 
 def init_db():
-    db.drop_tables([Bank, Branch, User], safe=True)
-    db.create_tables([Bank, Branch, User], safe=True)
+    db.drop_tables([Bank, User], safe=True)
+    db.create_tables([Bank, User], safe=True)
 
 
 if __name__ == '__main__':

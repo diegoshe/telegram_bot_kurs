@@ -1,21 +1,21 @@
-from models import Bank, Branch, User
+from models import Bank, User
 
 import datetime
 
 
 def creat_user_bd(message):
-    userId = message.from_user.id
+    user_id = message.from_user.id
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
     user_name = message.from_user.username
     try:
-        User.get(User.userId == userId)
+        User.get(User.userId == user_id)
     except User.DoesNotExist:
-        User.create(userId=userId, first_name=first_name, last_name=last_name, user_name=user_name)
-    
+        User.create(userId=user_id, first_name=first_name, last_name=last_name, user_name=user_name)
+
 
 def get_data_db():
-    data = [{'name':bank.name, 'buy':bank.buy, 'sell':bank.sells} for bank in Bank.select()]
+    data = [{'name': bank.name, 'buy': bank.buy, 'sell': bank.sells} for bank in Bank.select()]
     return data
 
 
@@ -49,7 +49,7 @@ def format_data_list(method):
         }
         format_data.append(result)
     if method == 'Выгодно продать':
-        sort_data = sorted(format_data, key=lambda x: x['buy'], reverse = True)[:5]
+        sort_data = sorted(format_data, key=lambda x: x['buy'], reverse=True)[:5]
     elif method == 'Выгодно купить':
         sort_data = sorted(format_data, key=lambda x: x['sell'])[:5]
     elif method == 'Курс всех банков':
@@ -59,6 +59,7 @@ def format_data_list(method):
 
 def main():
     print(get_data_db())
+
 
 if __name__ == '__main__':
     main()
